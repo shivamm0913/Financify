@@ -11,7 +11,16 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 connectDB();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      process.env.CLIENT_URL, // Deployed frontend (Vercel)
+      "http://localhost:5173", // Local dev
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 
