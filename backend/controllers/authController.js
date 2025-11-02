@@ -32,9 +32,8 @@ exports.registerUser = async (req, res) => {
       token: generateToken(user._id),
     });
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error registering user ", error: err.message });
+    console.error("Register error:", err);
+    res.status(500).json({ message: "Error registering user" });
   }
 };
 exports.loginUser = async (req, res) => {

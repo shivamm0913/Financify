@@ -15,11 +15,9 @@ exports.updateUserProfile = async (req, res) => {
     const { fullName } = req.body;
     // ✅ Only build profileImageUrl if a new file is uploaded
     let profileImageUrl;
-    if (req.file) {
-      profileImageUrl = `${req.protocol}://${req.get("host")}/uploads/${
-        req.file.filename
-      }`;
-    }
+    const BASE_URL =
+      process.env.BASE_URL || "https://financify-backend.onrender.com";
+    profileImageUrl = `${BASE_URL}/uploads/${req.file.filename}`;
 
     // ✅ Prepare only provided fields for update
     const updateFields = {};
