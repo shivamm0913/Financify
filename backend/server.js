@@ -15,10 +15,13 @@ app.use(
   cors({
     origin: [
       process.env.CLIENT_URL, // Deployed frontend (Vercel)
+      "https://financify-k8mx.vercel.app", // Frontend Vercel URL
       "http://localhost:5173", // Local dev
+      "http://localhost:5174", // Local dev alternate
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 

@@ -62,10 +62,12 @@ const Signup = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      if (error?.response?.data?.message) {
         setError(error.response.data.message);
+      } else if (error?.message) {
+        setError(error.message);
       } else {
-        setError("Something went wrong. PLease Try again");
+        setError("Something went wrong. Please try again.");
       }
     }
   };
