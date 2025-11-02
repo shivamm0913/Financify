@@ -11,13 +11,7 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 connectDB();
 
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
