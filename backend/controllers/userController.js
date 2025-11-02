@@ -17,7 +17,7 @@ exports.updateUserProfile = async (req, res) => {
     let profileImageUrl;
     const BASE_URL =
       process.env.BASE_URL || "https://financify-lxg1.onrender.com/";
-    profileImageUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    profileImageUrl = `${BASE_URL}uploads/${req.file.filename}`;
 
     // ✅ Prepare only provided fields for update
     const updateFields = {};
