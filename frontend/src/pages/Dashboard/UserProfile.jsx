@@ -63,19 +63,19 @@ const UserProfile = () => {
         variants={fadeIn("left", 0.2)}
         initial="hidden"
         whileInView="show"
-        className="p-8 flex w-full   mx-auto flex-col items-center justify-center text-center"
+        className="p-4 sm:p-6 md:p-8 flex w-full mx-auto flex-col items-center justify-center text-center"
       >
         <motion.h2
           variants={fadeIn("down", 0.3)}
           initial="hidden"
           whileInView="show"
-          className="text-2xl font-semibold w-full text-green-700 mb-6"
+          className="text-xl sm:text-2xl font-semibold w-full text-green-700 mb-4 sm:mb-6"
         >
           Profile Settings
         </motion.h2>
 
         {/* Profile Card */}
-        <div className="bg-white shadow-md rounded-2xl w-[50%] p-6 flex flex-col items-center gap-4 border border-green-100">
+        <div className="bg-white shadow-md rounded-2xl w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] p-4 sm:p-6 flex flex-col items-center gap-4 border border-green-100">
           {/* Profile Image */}
           <motion.div
             variants={fadeIn("down", 0.3)}
@@ -90,7 +90,7 @@ const UserProfile = () => {
                   : userData.profileImageUrl || "/default-avatar.png"
               }
               alt="Profile"
-              className="w-28 h-28 rounded-full object-cover border-4 border-green-500 shadow-md transition-transform duration-200 group-hover:scale-105"
+              className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-green-500 shadow-md transition-transform duration-200 group-hover:scale-105"
             />
 
             {/* Hidden File Input */}
@@ -109,7 +109,7 @@ const UserProfile = () => {
               className="absolute bottom-0 right-0 bg-green-600 text-white p-2 rounded-full shadow-md hover:bg-green-700 transition duration-200"
               title="Change Profile Picture"
             >
-              <LuUpload className="w-5 h-5" />
+              <LuUpload className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </motion.div>
 
@@ -146,7 +146,7 @@ const UserProfile = () => {
                 type="text"
                 value={userData.email}
                 disabled
-                className="  rounded-lg w-full p-2 mt-1 text-sm text-  opacity-50 "
+                className="rounded-lg w-full p-2 mt-1 text-sm opacity-50"
               />
             </motion.div>
 
