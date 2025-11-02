@@ -14,10 +14,8 @@ connectDB();
 app.use(
   cors({
     origin: [
-      process.env.CLIENT_URL, // Deployed frontend (Vercel)
-      "https://financify-k8mx.vercel.app", // Frontend Vercel URL
-      "http://localhost:5173", // Local dev
-      "http://localhost:5174", // Local dev alternate
+      "https://financify-tracker.vercel.app", // your deployed frontend URL
+      "http://localhost:5173", // for local testing
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -25,12 +23,23 @@ app.use(
   })
 );
 
+app.options("*", cors()); // Handle preflight requests
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use("/", (req, res, next) => {
 //   res.json({ message: "Hello" });
 // });
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://financify-tracker.vercel.app"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/income", incomeRoutes);
