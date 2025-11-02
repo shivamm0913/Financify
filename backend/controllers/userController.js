@@ -9,20 +9,23 @@ exports.getUserProfile = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 exports.updateUserProfile = async (req, res) => {
   try {
     const { fullName } = req.body;
-    // ✅ Only build profileImageUrl if a new file is uploaded
-    let profileImageUrl;
+
+    const updateFields = {};
     const BASE_URL =
       process.env.BASE_URL || "https://financify-lxg1.onrender.com/";
-    profileImageUrl = `${BASE_URL}uploads/${req.file.filename}`;
 
-    // ✅ Prepare only provided fields for update
-    const updateFields = {};
-    if (fullName && fullName.trim() !== "") updateFields.fullName = fullName;
-    if (profileImageUrl) updateFields.profileImageUrl = profileImageUrl;
+    // ✅ Only if a new file is uploaded
+    if (req.file) {
+      updateFields.profileImageUrl = `${BASE_URL}uploads/${req.file.filename}`;
+    }
+
+    // ✅ Only if name provided
+    if (fullName && fullName.trim() !== "") {
+      updateFields.fullName = fullName;
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
@@ -35,6 +38,7 @@ exports.updateUserProfile = async (req, res) => {
       user: updatedUser,
     });
   } catch (error) {
-    res.status(500).json({ message: "Upadte failed" });
+    console.error("Profile update error:", error);
+    res.status(500).json({ message: "Update failed", error: error.message });
   }
 };
