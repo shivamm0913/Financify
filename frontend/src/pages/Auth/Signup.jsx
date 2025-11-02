@@ -89,7 +89,7 @@ const Signup = () => {
                 setFullName(target.value);
               }}
               label="Full Name"
-              placeholder="Shweta J"
+              placeholder="John Doe"
               type="text"
             />
             <Input
@@ -98,7 +98,7 @@ const Signup = () => {
                 setEmail(target.value);
               }}
               label="Email Address"
-              placeholder="shweta@gmail.com"
+              placeholder="john@gmail.com"
               type="email"
             />
             <div className="md:col-span-2">
