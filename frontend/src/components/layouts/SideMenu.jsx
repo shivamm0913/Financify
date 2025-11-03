@@ -39,20 +39,20 @@ const SideMenu = ({ activeMenu }) => {
         whileInView="show"
         className="flex flex-col items-center justify-center gap-3 mt-3 mb-7"
       >
-        {user?.profileImageUrl ? (
+        {user?.profileImageUrl && user?.profileImageUrl.trim() !== "" ? (
           <img
-            src={user?.profileImageUrl || ""}
-            alt="Profile Image"
-            className="w-20 h-20 bg-slate-400 rounded-full"
+            src={user.profileImageUrl}
+            alt="Profile"
+            className="rounded-full w-12 h-12 object-cover"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "";
+            }}
           />
         ) : (
-          <CharAvatar
-            fullName={user?.fullName}
-            width="w-20"
-            height="h-20"
-            style="text-xl"
-          />
+          <CharAvatar fullName={user?.fullName || ""} />
         )}
+
         <h5 className="text-gray-950 font-medium leading-6">
           {user?.fullName || ""}
         </h5>

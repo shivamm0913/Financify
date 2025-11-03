@@ -52,6 +52,7 @@ const Signup = () => {
         fullName,
         email,
         password,
+        profileImageUrl: profileImageUrl || null,
       });
 
       const { token, user } = response.data;
