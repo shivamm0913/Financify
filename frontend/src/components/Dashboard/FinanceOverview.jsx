@@ -3,7 +3,7 @@ import CustomPieChart from "../Charts/CustomPieChart";
 import { fadeIn } from "../../utils/motion";
 import { motion } from "framer-motion";
 
-const COLORS = ["#875CF5", "#FA2C37", "#FF6900"];
+const COLORS = ["#875CF5",  "#FF6900","#FA2C37"];
 
 const FinanceOverview = ({ totalBalance, totalIncome, totalExpense }) => {
   const balanceData = [
