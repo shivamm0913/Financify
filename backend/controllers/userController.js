@@ -14,12 +14,29 @@ exports.updateUserProfile = async (req, res) => {
     const { fullName } = req.body;
 
     const updateFields = {};
-    const BASE_URL =
-      process.env.BASE_URL || "https://financify-lxg1.onrender.com/";
+    
+    // Use Vercel backend URL or fallback to environment variable
+    const BASE_URL = process.env.BASE_URL || 
+                     process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                     "https://financify-theta.vercel.app";
 
     // ✅ Only if a new file is uploaded
     if (req.file) {
-      updateFields.profileImageUrl = `${BASE_URL}uploads/${req.file.filename}`;
+      // For Vercel, files in /tmp are temporary and can't be served statically
+      // Convert to base64 data URL for storage in database
+      const fs = require("fs");
+      const imageBuffer = fs.readFileSync(req.file.path);
+      const base64Image = imageBuffer.toString("base64");
+      const imageUrl = `data:${req.file.mimetype};base64,${base64Image}`;
+      
+      updateFields.profileImageUrl = imageUrl;
+      
+      // Clean up temp file
+      try {
+        fs.unlinkSync(req.file.path);
+      } catch (unlinkError) {
+        console.error("Error deleting temp file:", unlinkError);
+      }
     }
 
     // ✅ Only if name provided
