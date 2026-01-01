@@ -9,7 +9,15 @@ const expenseRoutes = require("./routes/expenseRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const userRoutes = require("./routes/userRoutes");
 const app = express();
-connectDB();
+let isConnected = false;
+const connectOnce = async () => {
+  if (!isConnected) {
+    await connectDB();
+    isConnected = true;
+  }
+};
+
+connectOnce();
 
 app.use(
   cors({
