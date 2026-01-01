@@ -58,8 +58,17 @@ exports.downloadExpenseExcel = async (req, res) => {
     const wb = xlsx.utils.book_new();
     const ws = xlsx.utils.json_to_sheet(data);
     xlsx.utils.book_append_sheet(wb, ws, "Expense");
-    xlsx.writeFile(wb, "expense_details.xlsx");
-    res.download("expense_details.xlsx");
+    
+    // Generate buffer instead of writing to file
+    const buffer = xlsx.write(wb, { type: "buffer", bookType: "xlsx" });
+    
+    // Set headers and send buffer
+    res.setHeader(
+      "Content-Type",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    );
+    res.setHeader("Content-Disposition", "attachment; filename=expense_details.xlsx");
+    res.send(buffer);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
