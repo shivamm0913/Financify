@@ -32,7 +32,6 @@ app.use(
 );
 app.options(/.*/, cors());
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -48,7 +47,15 @@ app.use(express.urlencoded({ extended: true }));
 //   }
 //   next();
 // });
-
+app.use(async (req, res, next) => {
+  try {
+    await connectOnce(); // ⬅️ GUARANTEED DB CONNECTION
+    next();
+  } catch (err) {
+    console.error("DB connection failed", err);
+    res.status(500).json({ message: "Database connection error" });
+  }
+});
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/income", incomeRoutes);
@@ -65,4 +72,4 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 //   console.log(`Server running on  http://localhost:${PORT}`);
 // });
 
- module.exports = app;
+module.exports = app;
