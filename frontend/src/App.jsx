@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/next";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Home from "./pages/Dashboard/Home";
@@ -18,6 +19,7 @@ import UserProfile from "./pages/Dashboard/UserProfile";
 const App = () => {
   return (
     <UserProvider>
+      <Analytics />
       <div className="text-2xl">
         <Router>
           <Routes>
